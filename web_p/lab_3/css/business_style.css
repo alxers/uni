@@ -1,0 +1,59 @@
+html {
+    width: 100%;
+}
+
+body {
+    margin: 100px 50px 100px 50px;
+}
+
+.main-page {
+    background: #1b1b1b;
+    color: #cacaca;
+    font-size: 1.1em;
+}
+
+a {
+    color: #ffffff;
+}
+
+a:active, a:focus {
+    color: #dadada;
+}
+
+a:hover {
+    color: #dadada;
+}
+
+a:visited { 
+    color: #fbbfbf;
+}
+
+header {
+    width: 70%;
+    float: right;
+}
+
+.logo {
+    width: 30%;
+    float: left;
+}
+
+nav {
+    width: 30%;
+    float: left;
+}
+
+footer {
+    width: 100%;
+    clear: both;
+}
+
+.main-content {
+    width: 70%;
+    float: right;
+}
+
+.table-example {
+    width: 90%;
+    background: #0fef73;
+}

@@ -1,0 +1,65 @@
+html {
+    width: 100%;
+}
+
+body {
+    margin: 100px 50px 100px 50px;
+}
+
+.main-page {
+    background: #f0ffff;
+    color: #867566;
+    font-size: 1.2em;
+}
+
+.about-page {
+    background-color: #cccccc;
+    color: #ffffff; 
+}
+
+
+a {
+    color: #f14da7;
+}
+
+a:active, a:focus {
+    color: #d70fef;
+}
+
+a:hover {
+    color: #d70fef;
+}
+
+a:visited { 
+    color: blue;
+}
+
+header {
+    width: 70%;
+    float: right;
+}
+
+.logo {
+    width: 30%;
+    float: left;
+}
+
+nav {
+    width: 30%;
+    float: left;
+}
+
+footer {
+    width: 100%;
+    clear: both;
+}
+
+.main-content {
+    width: 70%;
+    float: right;
+}
+
+.table-example {
+    width: 90%;
+    background: #0fef73;
+}

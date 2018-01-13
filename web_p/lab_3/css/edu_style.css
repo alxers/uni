@@ -1,0 +1,66 @@
+html {
+    width: 100%;
+}
+
+body {
+    margin: 100px 50px 100px 50px;
+}
+
+.main-page {
+    background: #f7f4f6;
+    color: #6b6b6b;
+    font-size: 1.5em;
+    line-height: 1.3;
+}
+
+.about-page {
+    background-color: #cccccc;
+    color: #ffffff; 
+}
+
+
+a {
+    color: #859fb5;
+}
+
+a:active, a:focus {
+    color: #bbe0ff;
+}
+
+a:hover {
+    color: #bbe0ff;
+}
+
+a:visited { 
+    color: blue;
+}
+
+header {
+    width: 70%;
+    float: right;
+}
+
+.logo {
+    width: 30%;
+    float: left;
+}
+
+nav {
+    width: 30%;
+    float: left;
+}
+
+footer {
+    width: 100%;
+    clear: both;
+}
+
+.main-content {
+    width: 70%;
+    float: right;
+}
+
+.table-example {
+    width: 90%;
+    background: #0fef73;
+}
