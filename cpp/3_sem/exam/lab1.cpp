@@ -3,6 +3,9 @@
 #include <iostream>
 #include <array>
 #include <fstream>
+
+#define TRAIN_LENGTH 1
+
 // struct date // дата рождения
 //   {char daymon[6];
 //    int year;  };
@@ -88,6 +91,7 @@ struct Date
 
 class Train
 {
+public:
   std::string destination;
 
   int trainNumber;
@@ -98,7 +102,6 @@ class Train
 
   Date departureTime;
 
-public:
   Train(){};
   Train(
     std::string destination,
@@ -168,6 +171,28 @@ void Train::setDepartureTime(std::string day, int min, int hour, int month, int 
   };
 }
 
+    // std::string destination,
+    // int trainNumber,
+    // int sittingCoaches,
+    // int economyClassSleeper,
+    // int openCarriegeSeats
+
+std::ostream &operator<<(std::ostream &stream, Train train){
+  stream << "Train number: " << train.trainNumber;
+  stream << " sitting coaches: " << train.sittingCoaches;
+  stream << " economy class sleeper: " << train.economyClassSleeper;
+  stream << " open carriege seats: " << train.openCarriegeSeats;
+  return stream;
+}
+
+std::istream &operator>>(std::istream &stream, Train &train){
+  // stream >> vec.x >> vec.y >> vec.z;
+  stream >> train.destination;
+  stream >> train.trainNumber >> train.sittingCoaches;
+  stream >> train.economyClassSleeper >> train.openCarriegeSeats;
+  return stream;
+}
+
 // Compile options:
 // g++ -g -o a_main main.cpp
 int main()
@@ -175,7 +200,7 @@ int main()
   // Date d = { "Mon", 8, 16, 19, 1, 2019 };
   // printf("first: %s, last: %d\n", d.day, d.year);
 
-  Train *trains[5];
+  Train trains[TRAIN_LENGTH];
 
   // trains[0] = new Train("Minsk", 33, 0, 50, 80);
   // trains[1] = new Train("Moscow", 34, 100, 50, 80);
@@ -183,32 +208,32 @@ int main()
   // trains[3] = new Train("Berlin", 36, 0, 50, 80);
   // trains[4] = new Train("Minsk", 37, 100, 50, 80);
 
-  std::ifstream infile("trains_in.txt");
+  // std::ifstream infile("trains_in.txt");
 
-  if (infile.is_open())
-  {
-    std::string line;
-    std::string c;
-    std::string arg0;
-    // std::string delimeter;
-    int arg1, arg2, arg3, arg4, arg5;
-    int counter = 0;
+  // if (infile.is_open())
+  // {
+  //   std::string line;
+  //   std::string c;
+  //   std::string arg0;
+  //   // std::string delimeter;
+  //   int arg1, arg2, arg3, arg4, arg5;
+  //   int counter = 0;
 
-    while (std::getline(infile, line))
-    {
-      int last = 0;
-      int next = 0;
-      std::string delimiter = ",";
-      while ((next = line.find(delimiter, last)) != std::string::npos)
-      {
-        // std::cout << line.substr(last, next-last) << std::endl;
-        last = next + 1;
-      }
-      std::cout << line.substr(last) << std::endl;
-      // trains[counter] = new Train(arg0, arg1, arg2, arg3, arg4, arg5)
-    }
-    infile.close();
-  }
+  //   while (std::getline(infile, line))
+  //   {
+  //     int last = 0;
+  //     int next = 0;
+  //     std::string delimiter = ",";
+  //     while ((next = line.find(delimiter, last)) != std::string::npos)
+  //     {
+  //       // std::cout << line.substr(last, next-last) << std::endl;
+  //       last = next + 1;
+  //     }
+  //     std::cout << line.substr(last) << std::endl;
+  //     // trains[counter] = new Train(arg0, arg1, arg2, arg3, arg4, arg5)
+  //   }
+  //   infile.close();
+  // }
 
 
   // for (int i = 0; i < 5; i++)
@@ -220,6 +245,14 @@ int main()
   //     std::cout << "Train number: " << trains[i]->getTrainNumber() << std::endl;
   //   }
   // }
+
+  for (int i = 0; i < TRAIN_LENGTH; i++)
+  {
+    std::cout << " Enter train " << i << ": " << std::endl;
+    Train t;
+    std::cin >> t;
+    trains[i] = t;
+  }
 
   // Date d = { "Mon", 16, 19, 1, 2019 };
   // trains[0]->setDepartureTime("Mon", 1, 23, 1, 2019);
