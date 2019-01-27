@@ -1,0 +1,6 @@
+=====
+Destination: Minsk
+Train number: 33
+=====
+Destination: Minsk
+Train number: 37

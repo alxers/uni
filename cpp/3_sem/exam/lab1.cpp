@@ -1,88 +1,12 @@
-// #include <conio.h>
 #include <string>
 #include <iostream>
 #include <array>
 #include <fstream>
-
-#define TRAIN_LENGTH 1
-
-// struct date // дата рождения
-//   {char daymon[6];
-//    int year;  };
-// //=======     class Student    =================
-//    class Student{
-//    char name[30]; //private
-//    date t;
-//    char adr[30], fac[20];
-//    int kurs;
-//      public:
-//        Student();
-//        char *getfac();
-//        int getkurs();
-//        void show();
-//         };
-// Student::Student()
-//        {cout<<"Input name:"; cin>>name;
-//        cout<<"Input date of born\n";
-//        cout<<"Day.mon:";    cin>>t.daymon;
-//        cout<<"Year:";       cin>>t.year;
-//        cout<<"Input adr:";  cin>>adr;
-//        cout<<"Input fac:";  cin>>fac;
-//        cout<<"Input kurs:"; cin>>kurs;
-// }
-// void Student::show()
-//     {
-//      cout<<"Name      :"<<name<<endl;
-//      cout<<"Was born  :"<<t.daymon<<'.'<<t.year<<endl;
-//      cout<<"Address    :"<<adr<<endl;
-//      cout<<"Fac       :"<<fac<<endl;
-//      cout<<"Kurs      :"<<kurs<<endl;
-//      }
-// char *Student::getfac() { return fac; }
-// int Student::getkurs() { return kurs;  }
-// void spisfac(Student spis[],int n)//список студентов заданного факультетата
-//      {char fac[20];
-//       cout<<"Input faculty:";  cin>>fac;
-//       for(int i=0;i<n;i++)
-//            if(strcmp(spis[i].getfac(),fac)==0)spis[i].show();
-//      }
-// void spisfackurs(Student spis[],int n)
-// //список студентов заданных факультета и курса
-//      {int i,k;
-//       char fac[20];
-//       cout<<"Input faculty:";     cin>>fac;
-//       cout<<"Input the course:";  cin>>k;
-//       for(i=0;i<n;i++)
-//       if ((strcmp(spis[i].getfac(),fac)==0)&&(spis[i].getkurs()==k))
-//                spis[i].show();
-//      }
-// //=========    main   ================
-//  void main()
-// {    Student *spis;
-//      int n;
-//      cout<<"Input a number of students: "; cin>>n;
-//      spis=new Student [n];
-//      for(int i=0;i<n;i++) {
-//         cout<<"=============================="<<endl;
-//         spis[i].show();
-//         }
-// spisfac(spis,n);
-// spisfackurs(spis,n);
-// delete [] spis;
-// cout<<"press any key!"
-// while(!kbhit());
-// }
-
-
-//===============
+#include <stdexcept>
 
 struct Date
 {
-  // const here in order no to get compiler warning
-  // warning: ISO C++ forbids converting a string constant to ‘char*’
-  // const char *day;
-  std::string day;
-
+  int day;
   int min;
   int hour;
   int month;
@@ -128,7 +52,7 @@ public:
 
   // Setters
   void setDestination(std::string destination);
-  void setDepartureTime(std::string day, int min, int hour, int month, int year);
+  void setDepartureTime(int day, int min, int hour, int month, int year);
 };
 
 // Implementation
@@ -160,7 +84,7 @@ void Train::setDestination(std::string destination)
   this->destination = destination;
 }
 
-void Train::setDepartureTime(std::string day, int min, int hour, int month, int year )
+void Train::setDepartureTime(int day, int min, int hour, int month, int year )
 {
   this->departureTime = {
     day,
@@ -171,26 +95,166 @@ void Train::setDepartureTime(std::string day, int min, int hour, int month, int 
   };
 }
 
-    // std::string destination,
-    // int trainNumber,
-    // int sittingCoaches,
-    // int economyClassSleeper,
-    // int openCarriegeSeats
-
-std::ostream &operator<<(std::ostream &stream, Train train){
-  stream << "Train number: " << train.trainNumber;
-  stream << " sitting coaches: " << train.sittingCoaches;
-  stream << " economy class sleeper: " << train.economyClassSleeper;
-  stream << " open carriege seats: " << train.openCarriegeSeats;
+std::ostream &operator<<(std::ostream &stream, Date date){
+  stream << " Day: " << date.day;
+  stream << ", Time: " << date.hour << ":" << date.min;
+  stream << ", Month: " << date.month;
+  stream << ", Year: " << date.year;
   return stream;
 }
 
-std::istream &operator>>(std::istream &stream, Train &train){
-  // stream >> vec.x >> vec.y >> vec.z;
-  stream >> train.destination;
-  stream >> train.trainNumber >> train.sittingCoaches;
-  stream >> train.economyClassSleeper >> train.openCarriegeSeats;
+std::istream &operator>>(std::istream &stream, Date &date){
+  std::cout << "Enter Day: " << std::endl;
+  stream >> date.day;
+
+  std::cout << "Enter Hour: " << std::endl;
+  stream >> date.hour;
+  if(date.hour > 23 || date.hour < 0)
+  {
+    throw std::invalid_argument("received invalid hour");
+  }
+
+  std::cout << "Enter Minutes: " << std::endl;
+  stream >> date.min;
+
+  std::cout << "Enter Month: " << std::endl;
+  stream >> date.month;
+
+  std::cout << "Enter Year: " << std::endl;
+  stream >> date.year;
   return stream;
+}
+
+
+std::ostream &operator<<(std::ostream &stream, Train train)
+{
+  stream << " Train destination: " << train.destination;
+  stream << ", Number: " << train.trainNumber;
+  stream << ", Sitting coaches: " << train.sittingCoaches;
+  stream << ", Economy class sleeper: " << train.economyClassSleeper;
+  stream << ", Open carriege seats: " << train.openCarriegeSeats;
+  return stream;
+}
+
+std::istream &operator>>(std::istream &stream, Train &train)
+{
+  std::cout << "Enter destination: " << std::endl;
+  stream >> train.destination;
+
+  std::cout << "Enter train number: " << std::endl;
+  stream >> train.trainNumber;
+
+  std::cout << "Enter sitting coaches: " << std::endl;
+  stream >> train.sittingCoaches;
+
+  std::cout << "Enter economy class sleeper: " << std::endl;
+  stream >> train.economyClassSleeper;
+
+  std::cout << "Enter open carriege seats: " << std::endl;
+  stream >> train.openCarriegeSeats;
+  return stream;
+}
+
+void trainsGoTo(Train *trains, int trainsSize)
+{
+  std::string destination;
+  std::cout << "Enter train destination: " << std::endl;
+  std::cin >> destination;
+
+  std::ofstream fout;
+  fout.open("trains_out.txt");
+  if (!fout) {
+    std::cerr << "Error in opening the output file" << std::endl;
+  }
+
+  for (int i = 0; i < trainsSize; i++)
+  {
+    if (trains[i].getDestination() == destination)
+    {
+      std::cout << "=====" << std::endl;
+      std::cout << "Destination: " << destination << std::endl;
+      std::cout << "Train number: " << trains[i].getTrainNumber() << std::endl;
+      fout << "=====" << std::endl;
+      fout << "Destination: " << destination << std::endl;
+      fout << "Train number: " << trains[i].getTrainNumber() << std::endl;
+    }
+  }
+  fout.close();
+}
+
+void trainsGoToWithTime(Train *trains, int trainsSize)
+{
+  std::string destination;
+  int hour;
+  std::cout << "Enter train destination: " << std::endl;
+  std::cin >> destination;
+  std::cout << "Enter hour: " << std::endl;
+  std::cin >> hour;
+
+  std::ofstream fout;
+  fout.open("trains_out.txt");
+  if (!fout) {
+    std::cerr << "Error in opening the output file" << std::endl;
+  }
+
+
+  for (int i = 0; i < trainsSize; i++)
+  {
+    if (trains[i].getDestination() == destination && trains[i].departureTime.hour > hour)
+    {
+      std::cout << "=====" << std::endl;
+      std::cout << "Destination: " << destination << std::endl;
+      std::cout << "Train number: " << trains[i].getTrainNumber() << std::endl;
+      fout << "=====" << std::endl;
+      fout << "Destination: " << destination << std::endl;
+      fout << "Train number: " << trains[i].getTrainNumber() << std::endl;
+    }
+  }
+  fout.close();
+}
+
+void trainsWithSeats(Train *trains, int trainsSize)
+{
+  std::string destination;
+  std::cout << "Enter train destination: " << std::endl;
+  std::cin >> destination;
+
+  std::ofstream fout;
+  fout.open("trains_out.txt");
+  if (!fout) {
+    std::cerr << "Error in opening the output file" << std::endl;
+  }
+
+
+  for (int i = 0; i < trainsSize; i++)
+  {
+    if (trains[i].getDestination() == destination && trains[i].openCarriegeSeats > 0)
+    {
+      std::cout << "=====" << std::endl;
+      std::cout << "Destination: " << destination << std::endl;
+      std::cout << "Train number: " << trains[i].getTrainNumber() << std::endl;
+      fout << "=====" << std::endl;
+      fout << "Destination: " << destination << std::endl;
+      fout << "Train number: " << trains[i].getTrainNumber() << std::endl;
+    }
+  }
+  fout.close();
+}
+
+void writeTo(Train *trains, int trainsSize)
+{
+  std::ofstream fout;
+  fout.open("trains_out.txt");
+  if (!fout) {
+    std::cerr << "Error in opening the output file" << std::endl;
+  }
+
+  for (int i = 0; i < trainsSize; i++)
+  {
+    std::cout << trains[i] << std::endl;
+    fout << trains[i] << std::endl;
+  }
+  fout.close();
 }
 
 // Compile options:
@@ -200,89 +264,45 @@ int main()
   // Date d = { "Mon", 8, 16, 19, 1, 2019 };
   // printf("first: %s, last: %d\n", d.day, d.year);
 
-  Train trains[TRAIN_LENGTH];
-
-  // trains[0] = new Train("Minsk", 33, 0, 50, 80);
-  // trains[1] = new Train("Moscow", 34, 100, 50, 80);
-  // trains[2] = new Train("Paris", 35, 100, 50, 80);
-  // trains[3] = new Train("Berlin", 36, 0, 50, 80);
-  // trains[4] = new Train("Minsk", 37, 100, 50, 80);
-
-  // std::ifstream infile("trains_in.txt");
-
-  // if (infile.is_open())
-  // {
-  //   std::string line;
-  //   std::string c;
-  //   std::string arg0;
-  //   // std::string delimeter;
-  //   int arg1, arg2, arg3, arg4, arg5;
-  //   int counter = 0;
-
-  //   while (std::getline(infile, line))
-  //   {
-  //     int last = 0;
-  //     int next = 0;
-  //     std::string delimiter = ",";
-  //     while ((next = line.find(delimiter, last)) != std::string::npos)
-  //     {
-  //       // std::cout << line.substr(last, next-last) << std::endl;
-  //       last = next + 1;
-  //     }
-  //     std::cout << line.substr(last) << std::endl;
-  //     // trains[counter] = new Train(arg0, arg1, arg2, arg3, arg4, arg5)
-  //   }
-  //   infile.close();
-  // }
-
-
-  // for (int i = 0; i < 5; i++)
-  // {
-  //   if (trains[i]->getDestination() == "Minsk")
-  //   {
-  //     std::cout << "=====" << std::endl;
-  //     std::cout << "Destination: Minsk" << std::endl;
-  //     std::cout << "Train number: " << trains[i]->getTrainNumber() << std::endl;
-  //   }
-  // }
-
-  for (int i = 0; i < TRAIN_LENGTH; i++)
+  std::ifstream fin;
+  fin.open("trains_in.txt");
+  if (!fin)
   {
-    std::cout << " Enter train " << i << ": " << std::endl;
-    Train t;
-    std::cin >> t;
-    trains[i] = t;
+      std::cerr << "Error in opening the file" << std::endl;
+      return 1;
   }
 
-  // Date d = { "Mon", 16, 19, 1, 2019 };
-  // trains[0]->setDepartureTime("Mon", 1, 23, 1, 2019);
-  // trains[1]->setDepartureTime("Wed", 59, 5, 3, 2019);
-  // trains[2]->setDepartureTime("Tue", 13, 18, 2, 2019);
-  // trains[3]->setDepartureTime("Sun", 26, 9, 12, 2019);
-  // trains[4]->setDepartureTime("Mon", 16, 13, 1, 2019);
-  // // std::cout << "Date: " << trains[0]->getDepartureTime().day << std::endl;
+  // Determine file line number
+  std::string line;
+  int trainsSize = 0;
+  while(std::getline(fin, line))
+  {
+    trainsSize += 1;
+  }
+  fin.clear();
+  fin.seekg(0, std::iostream::beg);
 
-  // for (int i = 0; i < 5; i++)
-  // {
-  //   if (trains[i]->getDestination() == "Minsk" && trains[i]->getDepartureTime().hour > 5)
-  //   {
-  //     std::cout << "=====" << std::endl;
-  //     std::cout << "Destination: Minsk, Departure hour > than 5.00" << std::endl;
-  //     // std::cout << "Train number: " << trains[i]->getTrainNumber() << trains[i]->getDepartureTime().hour << std::endl;
-  //     printf("Train number: %d, Departure hour: %d\n", trains[i]->getTrainNumber(), trains[i]->getDepartureTime().hour);
-  //   }
-  // }
+  // Create array of objects
+  Train trains[trainsSize];
+  int trainCounter = 0;
+  while (trainCounter < trainsSize)
+  {
+    Train t;
+    Date d;
 
-  // for (int i = 0; i < 5; i++)
-  // {
-  //   if (trains[i]->getDestination() == "Minsk" && trains[i]->getSittingCoaches() > 0)
-  //   {
-  //     std::cout << "=====" << std::endl;
-  //     std::cout << "Destination: Minsk, Sitting coaches > than 0" << std::endl;
-  //     printf("Train number: %d, Number of sitting coaches: %d\n", trains[i]->getTrainNumber(), trains[i]->getSittingCoaches());
-  //   }
-  // }
+    fin >> d.day >> d.hour >> d.min >> d.month >> d.year >> t.destination >> t.trainNumber >> t.sittingCoaches >> t.economyClassSleeper >> t.openCarriegeSeats;
+    t.departureTime = d;
+    std::cout << t.departureTime;
+    trains[trainCounter] = t;
+    trainCounter += 1;
+  }
+  fin.close();
 
-  delete[] trains;
+  writeTo(trains, trainsSize);
+
+  // trainsGoTo(trains, trainsSize);
+  trainsGoToWithTime(trains, trainsSize);
+  // trainsWithSeats(trains, trainsSize);
+
   return 0;
 };
