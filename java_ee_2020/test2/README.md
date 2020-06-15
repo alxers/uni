@@ -9,7 +9,7 @@ You can download Tomcat here: [https://tomcat.apache.org/download-90.cgi](https:
 7. Click "Fix" and choose the first option ![link](readme/6.png)
 then click "Apply" and "OK".
 8. Now you should be able to run the project ![link](readme/7.png)
-If you're getting errors "Address localhost:xxxx already in use" go back to step 5, and choose another port.
+If you're getting errors "Address localhost:xxxx already in use" go back to step 5, and choose different port.
 
 Sometimes you can get Tomcat shutdown error.
 In that case you should go to "C:\Program Files\Apache Software Foundation\Tomcat 9.0\conf", open "server.xml" and change **Server port="-1" shutdown="SHUTDOWN"** to **Server port="1" shutdown="SHUTDOWN"**
